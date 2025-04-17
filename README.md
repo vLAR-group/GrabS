@@ -10,11 +10,11 @@
 
 We propose an unsupervised framework to separate learning objectness and search objects in 3D scenes.
 
-<img src="figures/overview.jpg" alt="drawing" width=800/>
+<img src="figs/framewrok.png" alt="drawing" width=800/>
 
 Our method enables an Agent to search objects in 3D scenes with the aid of Reinforcement Learning:
 
-<img src="figures/01-overview_demo.gif" alt="drawing" width=600/>
+<img src="figs/traj.png" alt="drawing" width=800/>
 
 ## 1. Environment
 
@@ -59,7 +59,7 @@ make
 We conduct **chair** segmentation on ScanNet and S3DIS datasets. To train an object-centric network for chair, we resume 
 SDF data [link](https://drive.google.com/drive/folders/1qE0Nukw5FcWUqnOR1RUL6gmMgPeFtG73?usp=sharing) from EFEM.  
 
-In addition, we create a synthetic dataset and segment multiple categories on it. To collect the training data of the object-centric network for multiple classes, we first download the 
+In addition, we create a synthetic dataset and segment it into multiple categories. To collect the training data of the object-centric network for multiple classes, we first download the 
 watertight mesh from [link](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/watertight.zip), 
 then follow EFEM to install and use [GAPS](https://github.com/tomfunkhouser/gaps) to compute Ground Truth SDF. The watertight mesh folder should be manually reorganized like this:
 ```shell script
@@ -72,7 +72,7 @@ ONet_data
 ...
 ```
 
-After compiling GAPS and downloading watertight Shapenet data, we can run the below command to compute Ground Truth SDF:
+After compiling GAPS and downloading watertight Shapenet data, we can run the following command to compute Ground Truth SDF:
 ```shell script
 python cal_gaps.py
 ```
@@ -132,14 +132,14 @@ data
 └── shapenet_splits
 ```
 
-## 2. Object-centric Network training
+## 3. Object-centric Network training
 We have two versions of the object-centric network in the paper. The first one is for chair segmentation on ScanNet and S3DIS.
 To train it, please run the command to construct augmentation data:
 ```shell script
 # Prepare point clouds for more categories as augmentation data in ./data/other_cls_data/
 python create_aug_data.py
 ```
-The chair SDF is trained as below:
+The chair SDF is trained as follows:
 ```shell script
 # Train the rotation estimation part, this will produce a ckpt in ./objnet/chair/pos/
 CUDA_VISIBLE_DEVICES=0 python train_vae_chair.py --stage="pos"
@@ -154,7 +154,7 @@ CUDA_VISIBLE_DEVICES=0 python train_ddpm_chair.py
 # or rectflow 
 CUDA_VISIBLE_DEVICES=0 python train_rectflow_chair.py
 ```
-The second object-centric network is for multiple category segmentation on our synthetic scenes and trained as below:
+The second object-centric network is for multiple category segmentation on our synthetic scenes and trained as follows:
 ```shell script
 # Train the rotation estimation part, this will produce a ckpt in ./objnet/multi-cate/pos/
 CUDA_VISIBLE_DEVICES=0 python train_vae_multiclass.py --stage="pos"
@@ -165,7 +165,7 @@ CUDA_VISIBLE_DEVICES=0 python train_vae_multiclass.py --stage="vae"
 # diffusion model (optional): 
 CUDA_VISIBLE_DEVICES=0 python train_ddpm_multiclass.py
 ```
-## 3. Object Segmentation Network training
+## 4. Object Segmentation Network training
 ### ScanNet
 The well-trained object-centric model for **chair** is saved in ```./objnet/chair/vae/``` or ```./objnet/chair/ddpm``` or ``./objnet/chair/rectflow``` by default.
 The segmentation model on ScanNet can be trained by:
@@ -208,5 +208,5 @@ CUDA_VISIBLE_DEVICES=0 python train_seg_sys.py
 CUDA_VISIBLE_DEVICES=0 python train_ddpmseg_sys.py
 ```
 
-## 4. Model checkpoints
-We also provide the well-trained checkpoints for ScanNet and the synthetic dataset in this [link](), note that the checkpoints for cross-dataset evaluation on S3DIS are also trained on ScanNet.
+## 5. Model checkpoints
+We also provide well-trained checkpoints for ScanNet and the synthetic dataset in this [link](). Note that the checkpoints for cross-dataset evaluation on S3DIS are also trained on ScanNet.
