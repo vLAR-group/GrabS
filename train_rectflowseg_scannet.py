@@ -50,7 +50,7 @@ def main(cfg, logger):
     diff_checkpoints = [os.path.splitext(os.path.basename(path))[0].split('_')[-1] for path in diff_checkpoints]
     diff_checkpoints = np.array(diff_checkpoints, dtype=int)
     diff_checkpoints = np.sort(diff_checkpoints)
-    diff_path = os.path.join(os.path.join(cfg.objnet_dir, 'rectflow_sum_0.1'), 'checkpoint_{}.tar'.format(diff_checkpoints[-1]))
+    diff_path = os.path.join(os.path.join(cfg.objnet_dir, 'rectflow'), 'checkpoint_{}.tar'.format(diff_checkpoints[-1]))
     print('Loaded diff checkpoint from: {}'.format(diff_path))
 
     cond_net = model.Diffusion_cond().eval()
