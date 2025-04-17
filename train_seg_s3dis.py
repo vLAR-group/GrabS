@@ -21,7 +21,6 @@ def config_parser():
     parser.add_argument("--data_dir", type=str, default='./data/s3dis_align/processed/')
     parser.add_argument("--objnet_dir", type=str, default='./objnet/chair/')
     parser.add_argument("--sp_dir", type=str, default='./data/s3dis_align/SPG_0.05')
-    # parser.add_argument("--save_path", type=str, default='./ckpt_s3dis_newcheck/SPG0.05_scaleVAE91_wpos_Area5_v2/step0.3_envr2_CD0.16_ballinitial/')
     parser.add_argument("--save_path", type=str, default='./segnet/s3dis_vae_chair')
 
     # Training Data Parameters
