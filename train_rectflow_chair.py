@@ -11,7 +11,7 @@ import numpy as np
 def config_parser():
     parser = argparse.ArgumentParser(description='sdf')
     parser.add_argument("--exp_name", type=str, default='shapenet_chairs')
-    parser.add_argument("--data_dir", type=str, default='../MyEFEM/data/ShapeNetV1_SDF/chairs/03001627/')
+    parser.add_argument("--data_dir", type=str, default='./data/chairs/03001627/')
     parser.add_argument("--save_path", type=str, default='./objnet/chair/')
     parser.add_argument("--split_file", type=str, default='./data/shapenet_splits/data/03001627/')
     parser.add_argument("--mix_file_dir", type=str, default='./data/other_cls_data/')
@@ -24,7 +24,7 @@ def config_parser():
     parser.add_argument("--lr", type=float, default=1e-4, help='Learning rate used during training.') ### notice the EFEMSDF lr is 1e-4
     parser.add_argument("--cond_strength", type=float, default=1)
     parser.add_argument("--uncond_prob", type=float, default=0.1)
-    parser.add_argument("--stage", type=str, default='rectflow_sum_0.1')
+    parser.add_argument("--stage", type=str, default='rectflow')
     return parser.parse_args()
 
 def main(cfg, logger):
