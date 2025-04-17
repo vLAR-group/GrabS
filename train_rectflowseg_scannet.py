@@ -46,7 +46,7 @@ def main(cfg, logger):
     vae_path = os.path.join(os.path.join(cfg.objnet_dir, 'vae'), 'checkpoint_{}.tar'.format(vae_checkpoints[-1]))
     print('Loaded vae checkpoint from: {}'.format(vae_path))
 
-    diff_checkpoints = glob(os.path.join(cfg.objnet_dir, 'rectflow_sum_0.1') + '/*tar')
+    diff_checkpoints = glob(os.path.join(cfg.objnet_dir, 'rectflow') + '/*tar')
     diff_checkpoints = [os.path.splitext(os.path.basename(path))[0].split('_')[-1] for path in diff_checkpoints]
     diff_checkpoints = np.array(diff_checkpoints, dtype=int)
     diff_checkpoints = np.sort(diff_checkpoints)
