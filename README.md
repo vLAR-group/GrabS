@@ -85,8 +85,8 @@ Uncompress the folder and move it to  `data/scannet/raw`. Follow Mask3D, we also
 Please download the ScanNet tool [link](https://github.com/ScanNet/ScanNet) and come into `ScanNet/Segmentor` to build by running `make` (or create makefiles for your system using `cmake`). This will create a segmentator binary file. 
 Finally, go outside the `ScanNet` to run the segmentator:
 ```shell script
-./run_segmentator.sh your_scannet_tranval_path ## e.g./home/zihui/SSD/ScanNetv2/scans
-./run_segmentator.sh your_scannet_test_path ## e.g./home/zihui/SSD/ScanNetv2/scans_test
+./run_segmentator.sh your_scannet_tranval_path ## e.g ./data/scannet/raw/scans
+./run_segmentator.sh your_scannet_test_path ## e.g ./data/scannet/raw/scans_test
 ```
 Having the superpoints file, we can run the preprocessing code:
 ```shell script
