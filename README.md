@@ -16,21 +16,21 @@ Our method enables an Agent to search objects in 3D scenes with the aid of Reinf
 
 <img src="figures/01-overview_demo.gif" alt="drawing" width=600/>
 
-## 0. Installation
+## 1. Environment
 
 ### Installing dependencies
 ```shell script
 ### CUDA 11.3  GCC 9.4
 conda env create -f env.yml
-# detectron2
+
 pip3 install 'git+https://github.com/facebookresearch/detectron2.git@710e7795d0eeadf9def0e7ef957eea13532e34cf' --no-deps
-## Install libopenblas-dev, mink
+
 sudo apt-get install libopenblas-dev
 git clone --recursive "https://github.com/NVIDIA/MinkowskiEngine"
 cd MinkowskiEngine
 git checkout 02fc608bea4c0549b0a7b00ca1bf15dee4a0b228
 python setup.py install --force_cuda --blas=openblas
-#pointnet2
+
 cd ../pointnet2
 python setup.py install
 ```
@@ -54,17 +54,14 @@ cmake .. -DPYTHON_LIBRARY=$CONDAENV/lib/libpython3.9.so -DPYTHON_INCLUDE_DIR=$CO
 make
 ```
 
-[comment]: <> (#### gaps 好像本地不能运行)
-
-## 1. Data Preparation
+## 2. Data Preparation
 ### ShapeNet
-For the ScanNet and S3DIS datasets, we mainly follow EFEM to segment the chair category, so we can resume their 
-SDF data from [link](https://drive.google.com/drive/folders/1qE0Nukw5FcWUqnOR1RUL6gmMgPeFtG73?usp=sharing).  
+We conduct **chair** segmentation on ScanNet and S3DIS datasets. To train an object-centric network for chair, we resume 
+SDF data [link](https://drive.google.com/drive/folders/1qE0Nukw5FcWUqnOR1RUL6gmMgPeFtG73?usp=sharing) from EFEM.  
 
-For our synthetic datasets, the training data of the object-centric network from multiple classes, we firstly download the 
+In addition, we create a synthetic dataset and segment multiple categories on it. To collect the training data of the object-centric network for multiple classes, we first download the 
 watertight mesh from [link](https://s3.eu-central-1.amazonaws.com/avg-projects/occupancy_networks/data/watertight.zip), 
-then follow EFEM to install and use [GAPS](https://github.com/tomfunkhouser/gaps) to create training data of SDF 
-on the chosen categories. The watertight mesh folder should be manually reorganized like this:
+then follow EFEM to install and use [GAPS](https://github.com/tomfunkhouser/gaps) to compute Ground Truth SDF. The watertight mesh folder should be manually reorganized like this:
 ```shell script
 ONet_data
 └── 02691156
@@ -75,23 +72,17 @@ ONet_data
 ...
 ```
 
-After compiling GAPS and downloading watertight Shapenet data, we can run:
+After compiling GAPS and downloading watertight Shapenet data, we can run the below command to compute Ground Truth SDF:
 ```shell script
 python cal_gaps.py
 ```
-By running the above command, you will begin to create SDF training data for the chosen classes. 
 **The well-prepared multi-class data can also be directly downloaded [here]()**.
 
-[comment]: <> (*Note that the **chair** data is provided in both prepared data of ours and EFEM, but they are different because EFEM does not release the full preparation code.)
 
 ### ScanNet
-We exactly follow [Mask3D](https://github.com/JonasSchult/Mask3D) to preprocess the ScanNet dataset. Download the ScanNet
-dataset from [here](http://kaldir.vc.in.tum.de/scannet_benchmark/documentation). 
-You need to sign the terms of use. Uncompress the folder and move it to  `data/scannet/raw`. Follow Mask3D, we also built 
-superpoints by applying Felzenszwalb and Huttenlocher's Graph-Based Image Segmentation algorithm to the test scenes using the default parameters. 
-
-Please come into `ScanNet/Segmentor`, and follow the [official repro](https://github.com/ScanNet/ScanNet/tree/master/Segmentator)
-to build by running `make` (or create makefiles for your system using `cmake`). This will create a segmentator binary file. 
+We exactly follow [Mask3D](https://github.com/JonasSchult/Mask3D) to preprocess the ScanNet dataset. Download the ScanNet dataset from [here](http://kaldir.vc.in.tum.de/scannet_benchmark/documentation). 
+Uncompress the folder and move it to  `data/scannet/raw`. Follow Mask3D, we also built superpoints by applying Felzenszwalb and Huttenlocher's Graph-Based Image Segmentation algorithm to the test scenes using the default parameters. 
+Please download the ScanNet tool [link](https://github.com/ScanNet/ScanNet) and come into `ScanNet/Segmentor` to build by running `make` (or create makefiles for your system using `cmake`). This will create a segmentator binary file. 
 Finally, go outside the `ScanNet` to run the segmentator:
 ```shell script
 ./run_segmentator.sh your_scannet_tranval_path ## e.g./home/zihui/SSD/ScanNetv2/scans
@@ -103,19 +94,16 @@ python preprocessing/scannet_preprocessing.py
 ```
 
 ### S3DIS
-S3DIS dataset can be found [here](
-https://docs.google.com/forms/d/e/1FAIpQLScDimvNMCGhy_rmBA2gHfDu3naktRm6A8BPwAWWDv-Uhm6Shw/viewform?c=0&w=1). 
-Download the files named "Stanford3dDataset_v1.2_Aligned_Version.zip". Uncompress the folder and move it to 
- `data/s3dis_align/raw`. There is an error in `line 180389` of file `Area_5/hallway_6/Annotations/ceiling_1.txt` 
-which needs to be fixed manually and modify the `copy_Room_1.txt` in `Area_6/copyRoom_1` to `copyRoom_1.txt`
-.Then run the below commands to begin preprocessing:
+S3DIS dataset can be found [here](https://docs.google.com/forms/d/e/1FAIpQLScDimvNMCGhy_rmBA2gHfDu3naktRm6A8BPwAWWDv-Uhm6Shw/viewform?c=0&w=1). 
+Download the files named "Stanford3dDataset_v1.2_Aligned_Version.zip". Uncompress the folder and move it to `data/s3dis_align/raw`. There is an error in `line 180389` of file `Area_5/hallway_6/Annotations/ceiling_1.txt` 
+which needs to be fixed manually and modify the `copy_Room_1.txt` in `Area_6/copyRoom_1` to `copyRoom_1.txt`. Then run the below commands to begin preprocessing:
 ```shell script
 python preprocessing/s3dis_preprocessong.py
 python prepare_superpoints/initialSP_prepare_s3dis_SPG.py
 ```
 
 ### Synthetic Scenes
-Download our data from [link]() and put it under the `data/sys_scene/processed`, then run the below command after compiling SPG:
+Download our data from [link]() and put it under the `data/sys_scene/processed`, then run the below command:
 ```shell script
 python prepare_superpoints/initialSP_prepare_sys_SPG.py
 ```
@@ -145,33 +133,33 @@ data
 ```
 
 ## 2. Object-centric Network training
-We have two versions of the object-centric network, the first one is for chair segmentation on ScanNet and S3DIS.
-Running the command to construct augmentation data for training the Object-centric Network:
+We have two versions of the object-centric network in the paper. The first one is for chair segmentation on ScanNet and S3DIS.
+To train it, please run the command to construct augmentation data:
 ```shell script
 # Prepare point clouds for more categories as augmentation data in ./data/other_cls_data/
 python create_aug_data.py
 ```
-The first chair SDF is trained as below:
+The chair SDF is trained as below:
 ```shell script
-# Train the rotation estimation part, this will produce a ckpt in ./objnet/pos/
+# Train the rotation estimation part, this will produce a ckpt in ./objnet/chair/pos/
 CUDA_VISIBLE_DEVICES=0 python train_vae_chair.py --stage="pos"
 
-# Train the SDF in VAE version, this will produce a ckpt in ./objnet/sdf/
+# Train the SDF in VAE version, this will produce a ckpt in ./objnet/chair/vae/
 CUDA_VISIBLE_DEVICES=0 python train_vae_chair.py --stage="vae"
 
-# diffusion model (optional): 
+# diffusion version (optional): 
 # And our latent diffusion model is based on the VAE feature space, so we need to train the VAE at first.
 # ddpm
 CUDA_VISIBLE_DEVICES=0 python train_ddpm_chair.py
 # or rectflow 
 CUDA_VISIBLE_DEVICES=0 python train_rectflow_chair.py
 ```
-The second one is for multiple category segmentation on our synthetic scenes and trained as below:
+The second object-centric network is for multiple category segmentation on our synthetic scenes and trained as below:
 ```shell script
-# Train the rotation estimation part, this will produce a ckpt in ./multiclass_objnet/pos/
+# Train the rotation estimation part, this will produce a ckpt in ./objnet/multi-cate/pos/
 CUDA_VISIBLE_DEVICES=0 python train_vae_multiclass.py --stage="pos"
 
-# Train the SDF in VAE version, this will produce a ckpt in ./multiclass_objnet/sdf/
+# Train the SDF in VAE version, this will produce a ckpt in ./objnet/multi-cate/vae/
 CUDA_VISIBLE_DEVICES=0 python train_vae_multiclass.py --stage="vae"
 
 # diffusion model (optional): 
@@ -179,8 +167,8 @@ CUDA_VISIBLE_DEVICES=0 python train_ddpm_multiclass.py
 ```
 ## 3. Object Segmentation Network training
 ### ScanNet
-The well-trained object-centric model for **chair** is saved in ```./objnet/sdf/``` or ```./objnet/diff/``` by default.
-We can train a segmentation model on ScanNet by simply running:
+The well-trained object-centric model for **chair** is saved in ```./objnet/chair/vae/``` or ```./objnet/chair/ddpm``` or ``./objnet/chair/rectflow``` by default.
+The segmentation model on ScanNet can be trained by:
 ```shell script
 # Train the segnet by VAE SDF
 CUDA_VISIBLE_DEVICES=0 python train_seg_scannet.py
@@ -210,7 +198,7 @@ CUDA_VISIBLE_DEVICES=0 python train_ddpmseg_s3dis.py
 ```
 
 ### Synthetic Dataset
-The well-trained object-centric models on six categories are saved in ```./objnet/multiclass/sdf/``` or ```./objnet/multiclass/diff/``` by default.
+The well-trained object-centric models on multiple categories are saved in ```./objnet/multi-cate/vae/``` or ```./objnet/multi-cate/diff/``` by default.
 We can train a segmentation model on a Synthetic dataset by simply running:
 ```shell script
 # Train the segnet by VAE SDF
