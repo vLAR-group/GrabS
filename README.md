@@ -43,7 +43,7 @@ conda install -c anaconda boost
 conda install -c omnia eigen3
 conda install eigen
 
-CONDAENV=YOUR_CONDA_ENVIRONMENT_LOCATION ##e.g. /home/zihui/anaconda3/envs/GOPS
+CONDAENV=YOUR_CONDA_ENVIRONMENT_LOCATION ## e.g. /home/zihui/anaconda3/envs/GrabS
 cd partition/ply_c
 cmake . -DPYTHON_LIBRARY=$CONDAENV/lib/libpython3.9.so -DPYTHON_INCLUDE_DIR=$CONDAENV/include/python3.9 -DBOOST_INCLUDEDIR=$CONDAENV/include -DEIGEN3_INCLUDE_DIR=$CONDAENV/include/eigen3
 make
