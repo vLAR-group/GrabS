@@ -22,6 +22,7 @@ Our method enables an Agent to search objects in 3D scenes with the aid of Reinf
 ```shell script
 ### CUDA 11.3  GCC 9.4
 conda env create -f env.yml
+source activate GrabS
 
 pip3 install 'git+https://github.com/facebookresearch/detectron2.git@710e7795d0eeadf9def0e7ef957eea13532e34cf' --no-deps
 
