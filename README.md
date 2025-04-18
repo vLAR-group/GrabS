@@ -103,7 +103,7 @@ python prepare_superpoints/initialSP_prepare_s3dis_SPG.py
 ```
 
 ### Synthetic Scenes
-Download our data from [link]() and put it under the `data/sys_scene/processed`, then run the below command:
+Download our data from [Google Drive](https://drive.google.com/file/d/1c422lsYV7c0x0vnPDQnwAbr0J_oImSBF/view?usp=sharing) and put it under the `data/sys_scene/processed`, then run the below command:
 ```shell script
 python prepare_superpoints/initialSP_prepare_sys_SPG.py
 ```
@@ -209,4 +209,4 @@ CUDA_VISIBLE_DEVICES=0 python train_ddpmseg_sys.py
 ```
 
 ## 5. Model checkpoints
-We also provide well-trained checkpoints for ScanNet and the synthetic dataset in this [link](). Note that the checkpoints for cross-dataset evaluation on S3DIS are also trained on ScanNet.
+We also provide well-trained checkpoints for ScanNet and the synthetic dataset in [Google Drive](https://drive.google.com/file/d/1WoBWTSOvgg4SP_1363y_DjHVrIkBj-Z8/view?usp=sharing). Note that the checkpoints for cross-dataset evaluation on S3DIS are also trained on ScanNet.
