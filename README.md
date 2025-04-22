@@ -12,9 +12,9 @@ We propose an unsupervised framework to separate learning objectness and search 
 
 <img src="figs/framewrok.png" alt="drawing" width=800/>
 
-Our method enables an Agent to search objects in 3D scenes with the aid of Reinforcement Learning:
+Our method can segment objects in 3D scenes with the aid of an embodied agent:
 
-<img src="figs/traj.png" alt="drawing" width=800/>
+<img src="figs/seg.mp4" alt="drawing" width=600/>
 
 
 ### [Full demo (Youtube)](https://youtu.be/sqJ_gKKzS5c)
