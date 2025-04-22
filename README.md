@@ -10,11 +10,11 @@
 
 We propose an unsupervised framework to separate learning objectness and search objects in 3D scenes.
 
-<p align="center"> <img src="figs/framewrok.png" alt="drawing" width="800"/> 
+<p align="center"> <img src="figs/framewrok.png" alt="drawing" width="800"/> </p>
 
 Our method can segment objects in 3D scenes with the aid of an embodied agent:
 
-<p align="center"> <img src="figs/seg_video.gif" alt="drawing" width="800"/>
+<p align="center"> <img src="figs/seg_video.gif" alt="drawing" width="800"/> </p>
 
 
 ### [Full demo (Youtube)](https://youtu.be/sqJ_gKKzS5c)
