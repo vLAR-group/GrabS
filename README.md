@@ -19,7 +19,7 @@ Our method enables an Agent to search objects in 3D scenes with the aid of Reinf
 
 ### [Full demo (Youtube)](https://youtu.be/sqJ_gKKzS5c)
 
-<p align="center"> <a href="https://youtu.be/x_UW7hU3Ows"><img src="figs/thumbnail.png" width=500></a> </p>
+<p align="center"> <a href="https://youtu.be/sqJ_gKKzS5c"><img src="figs/thumbnail.png" width=500></a> </p>
 
 
 ## 1. Environment
