@@ -83,7 +83,7 @@ After compiling GAPS and downloading watertight Shapenet data, we can run the fo
 ```shell script
 python cal_gaps.py
 ```
-**The well-prepared multi-class data can also be directly downloaded [here]()**.
+**The well-prepared multi-class data can also be directly downloaded from [Dropbox](https://www.dropbox.com/scl/fo/jk3v7cnbwv6razqzaafgk/ACzggrVsv1dShI99t0dml9Y?rlkey=d7c1voeq7pk04fobls3jiorog&st=zxd29bai&dl=0) or [百度网盘](https://pan.baidu.com/s/1c5DGW5HAcMqYyH4eP3L1rw)**(提取码qdts). Some category data are divided into two parts because they are large and need to be manually decompressed and put together.
 
 
 ### ScanNet
@@ -181,7 +181,7 @@ The segmentation model on ScanNet can be trained by:
 CUDA_VISIBLE_DEVICES=0 python train_seg_scannet.py
 
 # Train the segnet by ddpm
-CUDA_VISIBLE_DEVICES=0 python train_ddpm_scannet.py
+CUDA_VISIBLE_DEVICES=0 python train_ddpmseg_scannet.py
 # or train it by rectflow
 CUDA_VISIBLE_DEVICES=0 python train_rectflowseg_scannet.py
 ```
