@@ -10,7 +10,7 @@
 
 We propose an unsupervised framework to separate learning objectness and search objects in 3D scenes.
 
-<p align="center"> <img src="figs/framewrok.png" alt="drawing" width="800"/> </p>
+<p align="center"> <img src="figs/framework.png" alt="drawing" width="800"/> </p>
 
 Our method can segment objects in 3D scenes with the aid of an embodied agent:
 
@@ -105,7 +105,7 @@ S3DIS dataset can be found [here](https://docs.google.com/forms/d/e/1FAIpQLScDim
 Download the files named "Stanford3dDataset_v1.2_Aligned_Version.zip". Uncompress the folder and move it to `data/s3dis_align/raw`. There is an error in `line 180389` of file `Area_5/hallway_6/Annotations/ceiling_1.txt` 
 which needs to be fixed manually and modify the `copy_Room_1.txt` in `Area_6/copyRoom_1` to `copyRoom_1.txt`. Then run the below commands to begin preprocessing:
 ```shell script
-python preprocessing/s3dis_preprocessong.py
+python preprocessing/s3dis_preprocessing.py
 python prepare_superpoints/initialSP_prepare_s3dis_SPG.py
 ```
 
