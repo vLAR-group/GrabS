@@ -22,7 +22,7 @@ def config_parser():
     parser.add_argument("--max_diff_steps", type=int, default=1000)
     parser.add_argument("--num_epochs", type=int, default=600)
     parser.add_argument("--lr", type=float, default=1e-4, help='Learning rate used during training.') ### notice the EFEMSDF lr is 1e-4
-    parser.add_argument("--stage", type=str, default='diff')
+    parser.add_argument("--stage", type=str, default='ddpm')
     return parser.parse_args()
 
 def main(cfg, logger):
@@ -41,7 +41,7 @@ def main(cfg, logger):
     VAE = model.PointNet2_wpos()
     VAE.load_state_dict(torch.load(path)['model_state_dict'])
 
-    cfg.save_path = os.path.join(cfg.save_path, 'diff')
+    cfg.save_path = os.path.join(cfg.save_path, 'ddpm')
     train_dataset = voxelized_data.VoxelizedDataset('train', data_path=cfg.data_dir, split_file=cfg.split_file, batch_size=cfg.batch_size,
                     num_sample_points=cfg.num_sample_points_training, num_workers=8, mix_file_dir=cfg.mix_file_dir, mix_splits=cfg.mix_split_file)
     val_dataset = voxelized_data.VoxelizedDataset('val', data_path=cfg.data_dir, split_file=cfg.split_file, batch_size=cfg.batch_size,
