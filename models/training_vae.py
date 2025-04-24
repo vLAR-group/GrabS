@@ -77,7 +77,7 @@ class Trainer(object):
     def compute_loss(self, batch):
         device = self.device
 
-        if self.cfg.stage == 'sdf':
+        if self.cfg.stage == 'vae':
             p = batch.get('off_surface_points').to(device)
             df_gt = batch.get('df').to(device) #(Batch,num_points)
             inputs = batch.get('on_surface_points').to(device)
