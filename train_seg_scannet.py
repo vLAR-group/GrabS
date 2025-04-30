@@ -57,7 +57,8 @@ def main(cfg, logger):
     val_dataset = voxelized_data.VoxelizedDataset('validation', cfg, data_path=cfg.data_dir, batch_size=1, num_workers=4, voxel_size=cfg.voxel_size)
     #########################
     trainer = training_vaeseg_scannet.Trainer(mask3d, objnet, actor, critic, logger, train_dataset, val_dataset, val_RL_dataset, cfg.save_path, cfg, use_norm=cfg.use_norm, use_label=False)
-    trainer.validation(vis=False, log=False)
+    trainer.train_model(cfg.num_epochs)
+    # trainer.validation(vis=False, log=False)
     # trainer.validation_pseudo(vis=True, log=False)
     # trainer.save_scannet_format()
     # trainer.validation_dynamic_vis()
