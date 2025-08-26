@@ -1,6 +1,6 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2504.11754-b31b1b.svg)](https://arxiv.org/abs/2504.11754)
 ![code visitors](https://visitor-badge.glitch.me/badge?page_id=vLAR-group/OGC)
-[![License CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC4.0-blue.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
+[![License: CC-BY-NC-SA](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)](./LICENSE)
 [![Twitter Follow](https://img.shields.io/twitter/follow/vLAR_Group?style=social)](https://twitter.com/vLAR_Group)
 
 ## GrabS: Generative Embodied Agent for 3D Object Segmentation without Scene Supervision (ICLR 2025 Spotlight)
