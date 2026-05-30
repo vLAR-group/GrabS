@@ -4,7 +4,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/vLAR_Group?style=social)](https://twitter.com/vLAR_Group)
 
 ## GrabS: Generative Embodied Agent for 3D Object Segmentation without Scene Supervision (ICLR 2025 Spotlight)
-[Zihui Zhang](https://scholar.google.com.hk/citations?hl=en&user=jiwazT8AAAAJ&view_op=list_works&sortby=pubdate), [Yafei Yang](https://yangyafei1998.github.io/), [Hongtao Wen](https://hatimwen.github.io/), [Bo Yang](https://yang7879.github.io/)
+[Zihui Zhang](https://zihui0930.github.io/), [Yafei Yang](https://yangyafei1998.github.io/), [Hongtao Wen](https://hatimwen.github.io/), [Bo Yang](https://yang7879.github.io/)
 
 ### Overview
 
